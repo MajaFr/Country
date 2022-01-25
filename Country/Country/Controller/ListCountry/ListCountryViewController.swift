@@ -19,7 +19,8 @@ class ListCountryViewController: UIViewController {
         listView.tableView.delegate = self
         listView.tableView.dataSource = self
         
-        service.getCountryDetails { [self] countries in
+        service.getCountryDetails { [weak self] countries in
+            guard let self = self else { return }
             self.countries = countries ?? []
             DispatchQueue.main.async {
                 self.listView.tableView.reloadData()
